@@ -6,16 +6,16 @@ from greedy_algorithm import GreedyAlgorithm
 from evolutionary_algorithm import EvolutionaryAlgorithm
 from simulated_annealing import SimulatedAnnealing
 
-
-folder = "/Users/murad-sh/Private/TTP/data"
+path = "/Users/murad-sh/Private/TTP"
+folder = path + "/data"
 files = os.listdir(folder)
-file_number = 4
+file_number = 0
 
 if len(files) > 0:
     file = files[file_number]
     file_path = os.path.join(folder, file)
 
-results_dir = "/Users/murad-sh/Private/TTP/results"
+results_dir = path + "/results"
 params, nodes, items = read_file(file_path)
 
 print("Random Search")
@@ -53,7 +53,7 @@ print()
 
 print("Evolutionary Algorithm")
 evolutionary_algorithm = EvolutionaryAlgorithm(
-    params, nodes, items, filename=file, log_statistics=False
+    params, nodes, items, filename=file, log_statistics=True
 )
 best_solution = evolutionary_algorithm.run()
 best = best_fitness(evolutionary_algorithm.stats["best"])
@@ -69,3 +69,11 @@ print("Simulated Annealing")
 sa = SimulatedAnnealing(params, nodes, items)
 sa_best_solution = sa.run()
 print("Best: ", sa_best_solution)
+log_results(
+    results_dir,
+    file,
+    "Simulated Annealing",
+    sa_best_solution,
+    "-",
+    "-",
+)
