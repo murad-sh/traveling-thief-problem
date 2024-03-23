@@ -122,7 +122,7 @@ class EvolutionaryAlgorithm:
                 self.population + new_population, key=lambda x: x.fitness, reverse=True
             )[: self.population_size]
             self.calculate_generation_stats()
-            if log_statistics:
+            if self.log_statistics:
                 log_statistics(
                     self.filename,
                     generation + 1,
